@@ -1,8 +1,8 @@
 
 pub fn return_okay() -> String{
-    String::from("Okay!")
+    "Okay!".to_string()
 }
 
 pub fn return_hello() -> String{
-    String::from("Hello world!")
+    "Hello world!".to_string()
 }

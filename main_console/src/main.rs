@@ -1,8 +1,10 @@
 use std::io::Write;
 use std::io;
 mod length_of;
+mod print_numbers;
 use length_of::return_values::return_okay;
 use length_of::return_values::return_hello;
+use print_numbers::print_number;
 
 
 #[allow(dead_code)]
@@ -16,6 +18,7 @@ fn input_name(){
 
 fn main() {
     println!("Return values says: {}", return_hello());
+    print_number(8);
     println!("Return values says: {}", return_okay());
 }
 
