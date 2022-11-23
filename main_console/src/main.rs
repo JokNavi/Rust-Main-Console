@@ -1,43 +1,28 @@
-use std::io::Write;
 use std::io;
+use std::io::Write;
 mod length_of;
-mod print_numbers;
-use length_of::return_values::return_okay;
-use length_of::return_values::return_hello;
-use print_numbers::print_number;
-
-
-#[allow(dead_code)]
-fn input_name(){
-    let mut line = String::new();
-    print!("Enter your name: ");
-    let _ = std::io::stdout().flush();
-    io::stdin().read_line(&mut line).unwrap();
-    println!("Welcome: {}.", line);
-}
+use length_of::print_lengths::print_str_length;
 
 fn main() {
-    println!("Return values says: {}", return_hello());
-    print_number(8);
-    println!("Return values says: {}", return_okay());
+    print!("Please input your sentence: ");
+    let _ = io::stdout().flush();
+    let user_input = {
+        let mut nth_term = String::new();
+        io::stdin().read_line(&mut nth_term).expect("I/O error");
+        nth_term
+    };
+
+    //let user_input = "Hi!".to_string();
+    print_str_length(user_input);
 }
+
 
 #[cfg(test)]
 mod test {
-    use super::*;
-
-    #[test]
-    fn print_hi() {
-        println!("Hi!");
-    }
+    //use super::*;
 
     #[test]
     fn equals_2() {
         assert_eq!(2, 2);
-    }
-
-    #[test]
-    fn printed_hello(){
-        assert_eq!(return_hello(), String::from("Hello world!"))
     }
 }
