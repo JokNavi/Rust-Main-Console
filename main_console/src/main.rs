@@ -1,21 +1,18 @@
 use std::io::Write;
+use std::io;
 
-fn return_two() -> i8 {
-    2
-}
 
 fn main() {
     let mut line = String::new();
     print!("Enter your name: ");
     let _ = std::io::stdout().flush();
-    let b1 = std::io::stdin().read_line(&mut line).unwrap();
-    println!("Hello , {}", line);
-    println!("no of bytes read , {}", b1);
+    io::stdin().read_line(&mut line).unwrap();
+    println!("Welcome: {}.", line);
 }
 
 #[cfg(test)]
 mod test {
-    use super::*;
+    //use super::*;
 
     #[test]
     fn print_hi() {
@@ -24,6 +21,6 @@ mod test {
 
     #[test]
     fn equals_2() {
-        assert_eq!(return_two(), 2);
+        assert_eq!(2, 2);
     }
 }
