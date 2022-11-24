@@ -1,34 +1,26 @@
 use std::collections::HashMap;
+use crate::Sentences;
 
-struct Sentences<'a> {
-    line: Vec<&'a str>,
-}
-
-type SentenceTuple<'a> = (&'a str, usize);
-
-trait PrintLengths{
-    fn print_length(&self);
-}
-
-trait GetLengths {
-    fn lengths(&self) -> Vec<SentenceTuple>;
+type SentenceLengths<'a> = HashMap<&'a str, usize>;
+pub trait GetLengths {
+    fn lengths(&self) -> SentenceLengths;
 }
 
 impl<'a> GetLengths for Sentences<'a> {
-    fn lengths(&self) -> Vec<SentenceTuple> {
+    fn lengths(&self) -> SentenceLengths {
         let lengths = self.line.iter().map(|x| x.len()).collect::<Vec<usize>>();
         return self
             .line
             .clone()
             .into_iter()
             .zip(lengths)
-            .collect::<Vec<SentenceTuple>>();
+            .collect::<SentenceLengths>();
     }
 }
 
-impl PrintLengths for Vec<SentenceTuple<'_>>{
-    fn print_length(&self) {
-        
+pub fn print_lengths(input: &Sentences) {
+    for (sentence, length) in input.lengths(){
+        println!("\"{}\", is: {} long.", sentence, length)
     }
 }
 
@@ -36,9 +28,23 @@ impl PrintLengths for Vec<SentenceTuple<'_>>{
 #[cfg(test)]
 mod test {
     use super::*;
+
     #[test]
-    fn length_tuple() {
-        let input_array = Sentences{line: vec!["", " ", "Hi i'm nav."],};
-        assert_eq!(input_array.lengths(), vec![("", 0), (" ", 1), ("Hi i'm nav.", 11)]);
+    fn empty() {
+        let string_lengths = Sentences {line: vec![""]};
+        assert_eq!(string_lengths.lengths()[""],0);
+    }
+
+    #[test]
+    fn whitespace() {
+        let string_lengths = Sentences {line: vec![" "]};
+        assert_eq!(string_lengths.lengths()[" "],1);
+    }
+
+    #[test]
+    fn special_characters() {
+        let string_lengths = Sentences {line: vec!["&'\n\\."]};
+        assert_eq!(string_lengths.lengths()["&'\n\\."],5);
     }
 }
+
