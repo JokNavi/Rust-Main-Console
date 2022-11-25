@@ -9,16 +9,18 @@ pub struct Sentences {
 }
 
 fn main() {
-    
+
+    /*
     //Create an input vector of type Sentences similar to the one from a read file.
     let input_vec = Sentences { line: [" ", "Hi i'm nav!"].map(String::from).to_vec()};
+    */
     
+    let input_vec = Sentences { line: read_file_vec("src/files/Input.txt")};
+
     //Print all lengths of the contents in the previous vector as a hashmap.
-    println!("All the items in the hashmap are: {:?}", &input_vec.lengths());
-    
+    if let Some(items) = &input_vec.lengths() { println!("All the items in the hashmap are: {:?}", items) }
+
     //Print the longest item in the Vector
-    println!("[{:?}] Is the longest.", &input_vec.longest());
-    
-    println!("{:?}", read_file_vec("src/files/Input.txt"));
+    if let Some(longest) =  &input_vec.longest() {println!("[{:?}] Is the longest.", longest)}
 
 }
