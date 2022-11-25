@@ -52,7 +52,19 @@ mod test {
     use super::*;
 
     #[test]
-    fn empty() {
+    fn empty_longest() {
+        let string_lengths = Sentences { line: vec![] };
+        assert_eq!(string_lengths.longest(), Err("Vector is empty"));
+    }
+
+    #[test]
+    fn empty_length() {
+        let string_lengths = Sentences { line: vec![] };
+        assert_eq!(string_lengths.lengths(), Err("Vector is empty"));
+    }
+
+    #[test]
+    fn empty_value() {
         let string_lengths = Sentences { line: vec![""] };
         assert_eq!(string_lengths.lengths().unwrap()[""], 0);
     }
