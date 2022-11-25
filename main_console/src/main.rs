@@ -1,26 +1,11 @@
-use std::io::Write;
-use std::io;
+mod length_of;
+use length_of::lengths::print_lengths;
+
+pub struct Sentences<'a> {
+    line: Vec<&'a str>,
+}
 
 
 fn main() {
-    let mut line = String::new();
-    print!("Enter your name: ");
-    let _ = std::io::stdout().flush();
-    io::stdin().read_line(&mut line).unwrap();
-    println!("Welcome: {}.", line);
-}
-
-#[cfg(test)]
-mod test {
-    //use super::*;
-
-    #[test]
-    fn print_hi() {
-        println!("Hi!");
-    }
-
-    #[test]
-    fn equals_2() {
-        assert_eq!(2, 2);
-    }
+    print_lengths(&Sentences{line: vec!["", " ", "Hi i'm nav."]});
 }
