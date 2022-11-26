@@ -7,6 +7,7 @@ pub trait GetLengths {
 }
 
 pub trait GetLongestItem {
+    //finds the longest item in vectors of type Sentences
     fn longest(&self) -> Option<String>;
 }
 
@@ -19,7 +20,8 @@ impl GetLengths for Sentences {
                 let lengths = self.line.iter().map(|x| x.len()).collect::<Vec<usize>>();
                 //Merges original strings and length together into hashmap.
                 Some(
-                    self.line.clone()
+                    self.line
+                        .clone()
                         .into_iter()
                         .map(String::from)
                         .zip(lengths)
@@ -35,7 +37,6 @@ impl GetLongestItem for Sentences {
         match self.line.len() {
             0 => None,
             _ => {
-                //finds the longest item in vectors of type Sentences
                 let longest = self.line.iter().fold(&self.line[0], |acc, item| {
                     if item.len() > acc.len() {
                         item
@@ -63,7 +64,7 @@ mod test {
 
     #[test]
     fn empty_value() {
-        let string_lengths = Sentences { line: vec![""] };
+        let string_lengths = Sentences { line: vec!["".to_string()] };
         if let Some(result) = string_lengths.lengths() {
             assert_eq!(result[""], 0)
         };
@@ -71,7 +72,7 @@ mod test {
 
     #[test]
     fn whitespace() {
-        let string_lengths = Sentences { line: vec![" "] };
+        let string_lengths = Sentences { line: vec![" ".to_string()] };
         if let Some(result) = string_lengths.lengths() {
             assert_eq!(result[" "], 1)
         };
@@ -80,7 +81,7 @@ mod test {
     #[test]
     fn special_characters() {
         let string_lengths = Sentences {
-            line: vec!["&'\n\\."],
+            line: vec!["&'\n\\.".to_string()],
         };
         if let Some(result) = string_lengths.lengths() {
             assert_eq!(result["&'\n\\."], 5)
